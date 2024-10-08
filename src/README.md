@@ -8,9 +8,9 @@ config:
       light: 0.1
       dark: 0.3
     hero:
-      name: 魏小强
+      name: Steele Wayne
       tagline: Back End Developer
-      text: 认真生活，简单做人，用心做事。
+      text: 慢慢来反而是最快的。
       actions:
         - text: 笔  记
           link: /blog/

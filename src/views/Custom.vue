@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const message = ref("Hello World!");
+const message = ref('Hello World!')
 </script>
 
 <template>
@@ -9,4 +9,3 @@ const message = ref("Hello World!");
     {{ message }}
   </div>
 </template>
-

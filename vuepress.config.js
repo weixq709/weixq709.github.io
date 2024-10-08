@@ -1,26 +1,25 @@
-import { viteBundler } from "@vuepress/bundler-vite";
-import { defineUserConfig } from "vuepress";
-import theme from "./.vuepress/theme";
+import { viteBundler } from '@vuepress/bundler-vite'
+import { defineUserConfig } from 'vuepress'
+import theme from './.vuepress/theme'
 import { getDirname, path } from 'vuepress/utils'
 
-const __dirname = getDirname(import.meta.url);
-const resolve = (...dirs) => path.resolve(__dirname, ...dirs);
+const __dirname = getDirname(import.meta.url)
+const resolve = (...dirs) => path.resolve(__dirname, ...dirs)
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === 'production'
 
 export default defineUserConfig({
-  base: '/blog/',
-  lang: "zh-CN",
+  lang: 'zh-CN',
   locales: {
-    "/": { lang: "zh-CN", title: "魏小强", description: "热爱生活" },
+    '/': { lang: 'zh-CN', title: 'Steele‘s Blog', description: '一个后端开发者的博客' },
   },
-  dest: "docs",
-  public: resolve("public"),
-  temp: resolve(".vuepress/.temp"),
-  cache: resolve(".vuepress/.cache"),
+  dest: 'docs',
+  public: resolve('public'),
+  temp: resolve('.vuepress/.temp'),
+  cache: resolve('.vuepress/.cache'),
   plugins: [],
 
   bundler: viteBundler(),
 
   theme,
-});
+})

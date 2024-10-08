@@ -54,11 +54,11 @@ H~2~O
 - [x] 任务列表3
 - [x] 任务列表4
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
+| Tables        |      Are      |  Cool |
+| ------------- | :-----------: | ----: |
 | col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| col 2 is      |   centered    |   $12 |
+| zebra stripes |   are neat    |    $1 |
 
 > 引用内容
 >
@@ -84,6 +84,7 @@ H~2~O
 **demo wrapper：**
 
 ::: demo-wrapper title="示例" no-padding height="200px"
+
 <style scoped>
 .open-door {
   display: flex;
@@ -116,10 +117,10 @@ const obj = {
       deep: {
         deep: {
           value: 'this is to long text. this is to long text. this is to long text. this is to long text.', // [!code highlight]
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 }
 ```
 

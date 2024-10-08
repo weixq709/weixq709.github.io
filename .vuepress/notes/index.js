@@ -1,8 +1,8 @@
-import { defineNotesConfig } from "vuepress-theme-plume";
-import demoNotes from "./demo";
+import { defineNotesConfig } from 'vuepress-theme-plume'
+import demoNotes from './demo'
 
 export default defineNotesConfig({
-  dir: "notes",
-  link: "/",
+  dir: 'notes',
+  link: '/',
   notes: [demoNotes],
-});
+})
