@@ -5,7 +5,7 @@ import navbar from './navbar.js'
 export default defineThemeConfig({
   logo: '/images/profile.png',
   // 文档git仓库
-  docsRepo: '',
+  docsRepo: 'https://github.com/weixq709/blog',
   //
   docsDir: 'src',
 
@@ -15,7 +15,7 @@ export default defineThemeConfig({
   profile: {
     name: 'Steele Wayne',
     avatar: '/images/profile.png',
-    description: '坚持做自己 不被别人定义',
+    description: '慢慢来反而是最快的',
     circle: true,
     location: '杭州 中国',
   },
