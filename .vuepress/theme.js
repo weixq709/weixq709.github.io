@@ -27,7 +27,10 @@ export default plumeTheme({
         'toml',
         'rust',
         'vue',
-        'java'
+        'java',
+        'xml',
+        'sql',
+        'properties'
       ],
     },
     markdownEnhance: { demo: true },
@@ -77,17 +80,17 @@ export default plumeTheme({
 
     // 评论配置
     comment: {
-      provider: "Giscus", // "Artalk" | "Giscus" | "Twikoo" | "Waline"
+      provider: 'Giscus', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
       comment: true,
-      repo: "weixq709/blog",
-      repoId: "R_kgDOM9OBbw",
-      category: "General",
-      categoryId: "DIC_kwDOM9OBb84CjKry",
-      mapping: "pathname",
+      repo: 'weixq709/blog',
+      repoId: 'R_kgDOM9OBbw',
+      category: 'General',
+      categoryId: 'DIC_kwDOM9OBb84CjKry',
+      mapping: 'pathname',
       reactionsEnabled: true,
-      inputPosition: "top",
-      darkTheme: "dark_protanopia",
-      lightTheme: "light_protanopia",
+      inputPosition: 'top',
+      darkTheme: 'dark_protanopia',
+      lightTheme: 'light_protanopia',
     },
   },
 })
