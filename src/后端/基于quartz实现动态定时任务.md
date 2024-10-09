@@ -6,6 +6,7 @@ tags:
   - java
   - springboot
   - quartz
+sticky: 1  
 ---
 
 ## 为什么需要动态定时任务？
