@@ -7,6 +7,6 @@ export default defineNavbarConfig([
   { text: '归档', link: '/blog/archives/' },
   {
     text: '笔记',
-    items: [{ text: '示例', link: '/notes/demo/README.md' }],
+    items: [{ text: 'java', link: '/java/', activeMatch: '^/java/', }],
   },
 ])
