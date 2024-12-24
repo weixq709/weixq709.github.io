@@ -46,22 +46,24 @@ tags:
 ```java
 import org.apache.logging.log4j.core.appender.AbstractAppender;
 import org.apache.logging.log4j.core.config.Property;
+import org.apache.logging.log4j.core.Layout;
 
 public class MemoryAppender extends AbstractAppender {
 
   private List<String> messages = new ArrayList<>();
 
-  protected MemoryAppender() {
-      super("MemoryAppender", null, null, true, Property.EMPTY_ARRAY);
+  protected MemoryAppender(Layout<? extends Serializable> layout) {
+    super("MemoryAppender", null, layout, true, Property.EMPTY_ARRAY);
   }
 
   @Override
   public void append(LogEvent logEvent) {
-      messages.add(logEvent.getMessage().getFormattedMessage());
+    String message = new String(getLayout().toByteArray(logEvent));
+    messages.add(message);
   }
 
   public List<String> getMessages() {
-      return messages;
+    return messages;
   }
 }
 ```
@@ -87,7 +89,11 @@ public class LogCaptureTest {
   public void test() {
     Logger rootLogger = (Logger) LogManager.getRootLogger();
     LoggerContext context = rootLogger.getContext();
-    MemoryAppender memoryAppender = new MemoryAppender();
+    // 获取console appender
+    ConsoleAppender consoleAppender = context.getConfiguration().getAppender("console");
+    // 获取控制台日志格式
+    Layout<? extends Serializable> layout = consoleAppender.getLayout();
+    MemoryAppender memoryAppender = new MemoryAppender(layout);
     rootLogger.addAppender(memoryAppender);
     context.updateLoggers();
 
