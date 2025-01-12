@@ -7,6 +7,9 @@ export default defineNavbarConfig([
   { text: '归档', link: '/blog/archives/' },
   {
     text: '笔记',
-    items: [{ text: 'java', link: '/java/', activeMatch: '^/java/', }],
+    items: [
+      { text: 'java', link: '/java/', activeMatch: '^/java/' },
+      { text: 'dubbo', link: '/dubbo/', activeMatch: '^/dubbo/' },
+    ],
   },
 ])
