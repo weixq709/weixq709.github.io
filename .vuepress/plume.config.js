@@ -46,6 +46,6 @@ export default defineThemeConfig({
   },
 
   editLinkText: '在 GitHub 上编辑此页',
-  footer: { copyright: 'Copyright © 2024-present weixiaoqiang' },
+  footer: { copyright: `Copyright © ${new Date().getFullYear()}-present weixiaoqiang` },
   externalLinkIcon: false,
 })

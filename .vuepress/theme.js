@@ -2,7 +2,7 @@ import { plumeTheme } from 'vuepress-theme-plume'
 
 export default plumeTheme({
   // 部署域名
-  hostname: '',
+  hostname: 'https://weixq709.github.io',
 
   plugins: {
     shiki: {

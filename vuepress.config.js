@@ -10,7 +10,7 @@ const isProd = process.env.NODE_ENV === 'production'
 
 export default defineUserConfig({
   lang: 'zh-CN',
-  hostname: 'https://weixq709.github.io/blog/',
+  hostname: 'https://weixq709.github.io',
   locales: {
     '/': { lang: 'zh-CN', title: 'Steele\'s Blog', description: '一个后端开发者的博客' },
   },
