@@ -7,7 +7,11 @@ export default defineNotesConfig({
     {
       text: 'dubbo',
       link: '/dubbo/',
-      items: ['Dubbo SPI加载流程', 'Dubbo与Spring整合源码解析'],
+      items: [
+        '源码构建', 
+        'Dubbo SPI加载流程', 
+        'Dubbo与Spring整合源码解析'
+      ],
     },
   ],
 })
