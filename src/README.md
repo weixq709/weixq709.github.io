@@ -8,7 +8,7 @@ config:
       light: 0.1
       dark: 0.3
     hero:
-      name: Steele Wayne
+      name: Joyce Welling
       tagline: Back End Developer
       text: 慢慢来反而是最快的。
       actions:

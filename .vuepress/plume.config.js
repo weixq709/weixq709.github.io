@@ -13,7 +13,7 @@ export default defineThemeConfig({
   notes,
 
   profile: {
-    name: 'Steele Wayne',
+    name: 'Joyce',
     avatar: '/images/profile.png',
     description: '慢慢来反而是最快的',
     circle: true,
@@ -46,6 +46,6 @@ export default defineThemeConfig({
   },
 
   editLinkText: '在 GitHub 上编辑此页',
-  footer: { copyright: `Copyright © ${new Date().getFullYear()}-present weixiaoqiang` },
+  footer: { copyright: `Copyright © ${new Date().getFullYear()}-present Joyce` },
   externalLinkIcon: false,
 })
