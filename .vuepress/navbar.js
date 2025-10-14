@@ -10,6 +10,7 @@ export default defineNavbarConfig([
     items: [
       { text: 'java', link: '/java/', activeMatch: '^/java/' },
       { text: 'dubbo', link: '/dubbo/', activeMatch: '^/dubbo/' },
+      { text: 'golan笔记', link: '/golang/', activeMatch: '^/golang/' },
     ],
   },
 ])

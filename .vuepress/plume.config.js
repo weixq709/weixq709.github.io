@@ -11,6 +11,7 @@ export default defineThemeConfig({
 
   navbar,
   notes,
+  // outline: [2, 3],
 
   profile: {
     name: 'Joyce',

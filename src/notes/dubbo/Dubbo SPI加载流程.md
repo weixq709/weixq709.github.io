@@ -1,7 +1,7 @@
 ---
 title: Dubbo SPI加载流程
 createTime: 2025/01/09 09:09:10
-permalink: /dubbo/dubbo-spi-load-process/
+permalink: /dubbo/dubbo-spi-loading-process/
 ---
 
 在阅读`Dubbo`源码时，我们知道，`Dubbo`框架自定义了一套SPI机制。本文将分析`Dubbo`自定义SPI的原因，比较与`JAVA SPI`的优点以及`Dubb`如何通过`SPI`加载扩展点。

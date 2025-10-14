@@ -30,7 +30,8 @@ export default plumeTheme({
         'java',
         'xml',
         'sql',
-        'properties'
+        'properties',
+        'go'
       ],
     },
     markdownEnhance: { demo: true },
