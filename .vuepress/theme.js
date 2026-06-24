@@ -4,10 +4,14 @@ export default plumeTheme({
   // 部署域名
   hostname: 'https://weixq709.github.io',
 
+  markdown: {
+    // codeTree: true,
+  },
+
   plugins: {
     shiki: {
       // 启用twoslash
-      twoslash: true,
+      // twoslash: true,
       languages: [
         'sh',
         'css',
@@ -34,7 +38,10 @@ export default plumeTheme({
         'go'
       ],
     },
-    markdownEnhance: { demo: true },
+    // markdownEnhance: { demo: true },
+    markdownMath: {
+      type: 'katex',
+    },
     markdownPower: {
       // 启动隐秘文本
       plot: {
@@ -70,8 +77,6 @@ export default plumeTheme({
       caniuse: true,
       jsfiddle: true,
     },
-    fileTree: true, // :::file-tree  文件树容器
-    icons: true, // :[collect:name]:   内联 iconify 图标
 
     // docsearch: {
     //   appId: "",

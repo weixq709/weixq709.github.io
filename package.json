@@ -13,15 +13,17 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "vue": "^3.5.10",
-    "sass-embedded": "^1.79.4",
-    "vuepress": "^2.0.0-rc.17",
-    "vuepress-theme-plume": "^1.0.0-rc.106 <1.0.0-rc.120"
+    "katex": "^0.17.0",
+    "sass-embedded": "^1.79.4"
   },
   "devDependencies": {
     "@pengzhanbo/prettier-config": "^1.18.0",
-    "@vuepress/bundler-vite": "^2.0.0-rc.17",
+    "@vuepress/bundler-vite": "^2.0.0-rc.30",
+    "http-server": "^14.1.1",
     "prettier": "^3.3.3",
-    "http-server": "^14.1.1"
+    "typescript": "^6.0.3",
+    "vue": "^3.5.38",
+    "vuepress": "^2.0.0-rc.30",
+    "vuepress-theme-plume": "^1.0.0-rc.203"
   }
 }
