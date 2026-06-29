@@ -1,0 +1,557 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- 唯一支持POM的版本 -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- The Basics -->
+  <!-- 分组 -->
+  <groupId>...</groupId>
+  <!-- 通常为项目名称 -->
+  <artifactId>...</artifactId>
+  <!-- jar包版本 -->
+  <version>...</version>
+  <!-- 打包方式，包括：pom 、 jar 、 maven-plugin 、 ejb 、 war 、 ear 、 rar，默认为jar -->
+  <packaging>...</packaging>
+  <!-- 声明依赖列表 -->
+  <dependencies>
+    <!-- 依赖项分组 -->
+    <groupId>...</groupId>
+    <!-- 依赖项项目名称 -->
+    <artifactId>...</artifactId>
+    <!-- 依赖版本 -->
+    <version>...</version>
+    <!-- 分类器 区分那些由相同版本模板构建但内容不同的工件 -->
+    <classifier>...</classifier>
+    <!-- 依赖类型，默认为jar，同packaging -->
+    <type>jar</type>
+    <!-- 作用域 -->
+    <!-- compile 默认作用域，编译、测试、运行均可使用，会传递给下游模块 -->
+    <!-- provided 编译、测试时可使用，不打包进最终产物，不传递给下游 -->
+    <!-- runtime 编译时不可见，测试、运行时可使用，会传递给下游 -->
+    <!-- test 编译、测试时可用，不打包、不传递 -->
+    <!-- system 与provided行为一致，jar来自本地文件，不推荐使用，移植性差，推荐使用install安装本地jar包到本地仓库 -->
+    <!-- import 将目标 BOM 的 <dependencyManagement> 全部导入当前项目 -->
+    <scope>...</scope>
+    <!-- scope设置为system时，指定本地jar包路径 -->
+    <systemPath>...</systemPath>
+    <!-- 向其他使用此项目的外部项目声明，无需改依赖项即可正常运行 -->
+    <optional>...</optional>
+    <!-- 用于解决依赖冲突，可在groupId和artifactId中使用*排除 -->
+    <exclusions>
+      <exclusion>
+        <groupId>...</groupId>
+        <artifactId>...</artifactId>
+      </exclusion>
+    </exclusions>
+  </dependencies>
+
+  <!-- 声明父项目 -->
+  <parent>
+    <!-- 父项目分组 -->
+    <groupId>...</groupId>
+    <!-- 父项目名称 -->
+    <artifactId>...</artifactId>
+    <!-- 父项目版本 -->
+    <version>...</version>
+    <!-- 指定查找父pom的路径 顺序为：指定路径 => 本地仓库 => 远程仓库 -->
+    <!-- <relativePath /> 表示跳过本地仓库，直接从远程仓库查找 -->
+    <relativePath>...</relativePath>
+  </parent>
+
+  <!-- 统一管理项目依赖版本 -->
+  <dependencyManagement>
+    <dependencies>...</dependencies>
+  </dependencyManagement>
+  <!-- 父子工程包含子模块 -->
+  <modules>
+    <!-- 声明子模块 -->
+    <module>...</module>
+  </modules>
+  <!-- 项目属性，例如：字符集，源代码jdk版本，编译版本 -->
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <!-- 推荐写法（JDK9+，同时控制 source + target + API） -->
+    <maven.compiler.release>8</maven.compiler.release>
+    <!-- 开启增量编译 -->
+    <maven.compiler.useIncrementalCompilation>true</maven.compiler.useIncrementalCompilation>
+
+    <!-- 源码编译编码（必设，否则中文报警告） -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- 报告输出编码 -->
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- 编译器编码（与 sourceEncoding 保持一致） -->
+    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+
+    <!-- ========== 测试控制 ========== -->
+    <!-- 跳过测试编译 + 运行 -->
+    <maven.test.skip>false</maven.test.skip>
+
+    <!-- 只跳过测试运行，仍编译测试代码 -->
+    <skipTests>false</skipTests>
+
+    <!-- 测试失败后继续构建，不中断 -->
+    <maven.test.failure.ignore>false</maven.test.failure.ignore>
+
+    <!-- 测试报告输出目录 -->
+    <maven.test.reports>${project.build.directory}/surefire-reports</maven.test.reports>
+
+    <!-- =========================== 构建生命周期跳过 =========================== -->
+
+    <maven.install.skip>false</maven.install.skip>   <!-- 跳过 install -->
+    <maven.deploy.skip>false</maven.deploy.skip>     <!-- 跳过 deploy，CI 子模块常用 -->
+    <maven.javadoc.skip>true</maven.javadoc.skip>    <!-- 跳过 javadoc 生成 -->
+    <maven.source.skip>false</maven.source.skip>     <!-- 跳过 sources jar -->
+
+    <!-- =========================== 版本与构建信息 =========================== -->
+    <!-- 构建时写入 MANIFEST.MF，方便追踪制品来源 -->
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+    <!-- 使用：${maven.build.timestamp} -->
+
+    <!-- =========================== 依赖版本管理（自定义变量） =========================== -->
+    <spring-boot.version>3.2.0</spring-boot.version>
+  </properties>
+
+  <!-- 构建设置 -->
+  <build>
+    <!-- 源文件目录 -->
+    <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+    <!-- 脚步源码目录，较少使用 -->
+    <scriptSourceDirectory>${project.basedir}/src/main/scripts</scriptSourceDirectory>
+    <!-- 测试源码目录 -->
+    <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+    <!-- 主编译目录 -->
+    <outputDirectory>${project.basedir}/target/classes</outputDirectory>
+    <!-- 测试编译输出目录 -->
+    <testOutputDirectory>${project.basedir}/target/test-classes</testOutputDirectory>
+
+    <!-- 默认的执行目标，下面的默认目标在执行mvn命令时等价于mvn clean package-->
+    <!-- 如果指定则使用指定的目标，例如：mvn install -->
+    <defaultGoal>clean package</defaultGoal>
+    <!-- 构建的目标位置 -->
+    <directory>${project.basedir}/target</directory>
+    <!-- 构建后的项目名称，默认为${artifactId}-${version}，不包含扩展名classifier -->
+    <finalName>${artifactId}-${version}</finalName>
+
+    <!-- 配置过滤器 -->
+    <filters>
+      <!-- 构建时使用filter1文件中的变量对resources中的文件占位符进行替换 -->
+      <filter>filters/filter1.properties</filter>
+    </filters>
+
+    <!-- 资源配置 -->
+    <resources>
+      <!-- 将某个目录下的资源文件处理后放到目标目录 -->
+      <resource>
+        <!-- 目标路径 -->
+        <targetPath>META-INF/plexus</targetPath>
+        <!-- 是否使用过滤器 -->
+        <!-- 二进制资源需要关闭替换，否则会损坏文件 -->
+        <filtering>false</filtering>
+        <!-- 资源所在位置，默认位置是${project.basedir}/src/main/resources -->
+        <directory>\${project.basedir}/src/main/plexus</directory>
+        <!-- 过滤文件，可使用* -->
+        <includes>
+          <include>configuration.xml</include>
+          <!-- 匹配resources根目录下任意名称的yaml文件 -->
+          <include>*.yaml</include>
+        </includes>
+        <!-- include和exclude冲突时，exclude的优先级更高 -->
+        <excludes>
+          <!-- 过滤任意目录下的properties文件 -->
+          <exclude>**/*.properties</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <!-- 于resources一致，区别在于默认源路径为${project.basedir}/src/test/resources，且不会打包 -->
+    <testResources>...</testResources>
+
+    <!-- 打包插件配置 -->
+    <plugins>
+      <!-- 不能同时声明同一个插件，否则会警告（Maven 3） -->
+      <plugin>
+        <!-- 插件租 -->
+        <groupId>...</groupId>
+        <!-- 插件名称 -->
+        <artifactId>...</artifactId>
+        <!-- 插件版本 -->
+        <version>...</version>
+        <!-- 是否加载此插件的扩展功能 -->
+        <extensions>false</extensions>
+        <!-- 是否继承pom中的插件配置，默认true -->
+        <inherited>true</inherited>
+        <configuration>
+          <classifier>test</classifier>
+        </configuration>
+        <dependencies>...</dependencies>
+        <executions>
+          <execution>
+            <id>...</id>
+            <phase>...</phase>
+            <goals>
+              <goal>...</goal>
+            </goals>
+            <inherited>...</inherited>
+            <configuration>...</configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- 环境检查 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.4.1</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals><goal>enforce</goal></goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>[3.6.0,)</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>[17,)</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ftp</artifactId>
+        <version>1.0-alpha-3</version>
+      </extension>
+    </extensions>
+  </build>
+
+  <reporting>
+    <!-- 是否排除默认报告插件，true 则只运行显式声明的插件 -->
+    <excludeDefaults>false</excludeDefaults>
+    <!-- 报告输出目录，默认为 target/site -->
+    <outputDirectory>${project.build.directory}/site</outputDirectory>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.0</version>
+        <reportSets>
+          <reportSet>
+            <!-- 报告集唯一 ID -->
+            <id>html</id>
+            <!-- 是否继承父模块的报告配置 -->
+            <inherited>true</inherited>
+            <!-- 该报告集生成哪些报告 -->
+            <reports>
+              <report>javadoc</report>
+              <report>test-javadoc</report>
+            </reports>
+            <configuration>
+              <links>
+                <link>https://docs.oracle.com/en/java/</link>
+              </links>
+            </configuration>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <!-- 生成测试覆盖率报告 -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.11</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <!-- More Project Information -->
+  <!-- 项目名称 -->
+  <name>...</name>
+  <!-- 项目描述 -->
+  <description>...</description>
+  <!-- 项目主页地址 -->
+  <url>...</url>
+  <!-- 项目创建的年份 -->
+  <inceptionYear>...</inceptionYear>
+  <!-- 许可证配置，规定了如何以及何时可以使用某个项目 -->
+  <licenses>
+    <name>Apache-2.0</name>
+    <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    <distribution>repo</distribution>
+    <comments>A business-friendly OSS license</comments>
+  </licenses>
+  <organization>
+    <name>Mojohaus</name>
+    <url>http://www.mojohaus.org</url>
+  </organization>
+
+  <!-- 核心开发人员配置，只有那些直接负责代码编写的人才应该被列出，而不是所有人 -->
+  <developers>
+    <developer>
+      <!-- 开发者唯一标识符，用于在 SCM、Issue 系统中关联开发者 -->
+      <id>jdoe</id>
+      <!-- 开发者的真实姓名，显示在生成的项目站点的开发者列表页中 -->
+      <name>John Doe</name>
+      <!-- 开发者的联系邮箱 -->
+      <email>jdoe@example.com</email>
+      <!-- 开发者的个人主页，可以是博客或github等 -->
+      <url>http://www.example.com/jdoe</url>
+      <!-- 开发者的组织，一个项目可以包含多个来自不同组织的开发者 -->
+      <organization>ACME</organization>
+      <!-- 开发者所属组织官网地址，与organization配合使用，生成带链接的组织名 -->
+      <organizationUrl>http://www.example.com</organizationUrl>
+      <!-- 描述开发者的角色，可以包含多个，内容自定义 -->
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <!-- 开发者所在时区，推荐使用 IANA 时区格式（Asia/Shanghai），也可使用 UTC 偏移（+8） -->
+      <timezone>America/New_York</timezone>
+      <!-- 存放开发者的自定义扩展属性，标签为属性名称 -->
+      <properties>
+        <picUrl>http://www.example.com/jdoe/pic</picUrl>
+      </properties>
+    </developer>
+  </developers>
+
+  <!-- 贡献者，可以提交PR无直接提交权限 -->
+  <contributors>
+    <contributor>
+      <name>Jane Smith</name>
+      <email>jane@example.com</email>
+      <roles>
+        <role>patch contributor</role>
+      </roles>
+    </contributor>
+  </contributors>
+
+  <!-- Environment Settings -->
+  <!-- 描述项目使用的 Bug 或 Issue 管理工具，信息展示在生成的项目站点中 -->
+  <issueManagement>
+    <!-- 系统名称，如 GitHub Issues、Jira、Bugzilla -->
+    <system>GitHub Issues</system>
+    <!-- 问题追踪系统的访问地址 -->
+    <url>https://github.com/example/my-project/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+    <!-- CI 系统名称，如 GitHub Actions、Jenkins、Travis CI -->
+    <system>GitHub Actions</system>
+    <!-- CI 系统访问地址 -->
+    <url>https://github.com/example/my-project/actions</url>
+    <!-- 构建通知配置（通知给哪些人、何时通知） -->
+    <notifiers>
+      <notifier>
+        <!-- 通知类型，如 mail -->
+        <type>mail</type>
+        <!-- 构建失败时通知 -->
+        <sendOnFailure>true</sendOnFailure>
+        <!-- 构建成功时通知 -->
+        <sendOnSuccess>false</sendOnSuccess>
+        <!-- 构建出错时通知 -->
+        <sendOnError>true</sendOnError>
+        <!-- 构建警告时通知 -->
+        <sendOnWarning>false</sendOnWarning>
+        <!-- 通知地址 -->
+        <address>ci-notify@example.com</address>
+        <configuration>
+          <address>ci-notify@example.com</address>
+        </configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement>
+  
+  <!-- 描述项目的邮件列表，展示在项目站点中方便用户订阅讨论。 -->
+  <mailingLists>
+    <mailingList>
+      <!-- 邮件列表名称 -->
+      <name>Dev Mailing List</name>
+      <!-- 订阅地址，发送邮件到此地址完成订阅 -->
+      <subscribe>dev-subscribe@example.com</subscribe>
+      <!-- 退订地址 -->
+      <unsubscribe>dev-unsubscribe@example.com</unsubscribe>
+      <!-- 发帖地址 -->
+      <post>dev@example.com</post>
+      <!-- 邮件列表历史归档地址 -->
+      <archive>http://mail-archives.example.com/dev</archive>
+      <!-- 其他归档镜像 -->
+      <otherArchives>
+        <otherArchive>http://archive.example.org/dev</otherArchive>
+      </otherArchives>
+    </mailingList>
+  </mailingLists>
+
+  <!-- 描述项目的版本控制仓库信息，用于生成站点、Release 插件自动打 tag 等 -->
+  <scm>
+    <!-- 开发者使用的连接地址（可读写，需认证） -->
+    <developerConnection>scm:git:git@github.com:example/my-project.git</developerConnection>
+    <!-- 只读连接地址（匿名访问） -->
+    <connection>scm:git:https://github.com/example/my-project.git</connection>
+    <!-- 源码浏览器地址（网页访问） -->
+    <url>https://github.com/example/my-project</url>
+    <!-- 当前代码对应的 SCM 标签，发布后由 release 插件自动填写 -->
+    <tag>HEAD</tag>
+  </scm>
+
+  <!-- 构建前提条件，3.X后推荐改用 maven-enforcer-plugin 进行更灵活的环境检查 -->
+  <prerequisites>
+    <!-- 声明构建该项目所需的 Maven 最低版本，版本不满足时构建失败 -->
+    <maven>3.6.0</maven>
+  </prerequisites>
+
+  <!-- 声明除中央仓库外，Maven 还应从哪里查找依赖。 -->
+  <repositories>
+    <repository>
+      <!-- 仓库唯一 ID，需与 settings.xml 中 server.id 一致才能认证 -->
+      <id>my-nexus</id>
+      <!-- 仓库名称，仅用于展示 -->
+      <name>My Nexus Repository</name>
+      <!-- 仓库地址 -->
+      <url>https://nexus.example.com/repository/maven-public/</url>
+      <!-- 正式版配置 -->
+      <releases>
+        <!-- 是否启用正式版下载 -->
+        <enabled>true</enabled>
+        <!-- 检查更新频率：always/daily（默认）/interval:N（分钟）/never -->
+        <updatePolicy>daily</updatePolicy>
+        <!-- 校验失败策略：warn（默认）/fail/ignore -->
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <!-- 快照版配置 -->
+      <snapshots>
+        <enabled>true</enabled>
+        <!-- 快照通常更新频繁，可设为 always -->
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </snapshots>
+      <!-- 仓库布局，默认 default，旧版 Maven 1 用 legacy -->
+      <layout>default</layout>
+    </repository>
+  </repositories>
+
+  <!-- 结构与 <repositories> 完全一致，区别是专门用于查找构建插件，而不是项目依赖。 -->
+  <pluginRepositories>
+    <pluginRepository>
+      <id>my-plugin-repo</id>
+      <name>My Plugin Repository</name>
+      <url>https://nexus.example.com/repository/maven-plugins/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <!-- 插件通常不需要频繁更新快照 -->
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <!-- 发布管理，配置 mvn deploy 时将构建产物推送到哪个远程仓库 -->
+  <distributionManagement>
+    <!-- 正式版发布仓库 -->
+    <repository>
+      <id>nexus-releases</id>
+      <name>Nexus Release Repository</name>
+      <url>https://nexus.example.com/repository/maven-releases/</url>
+    </repository>
+
+    <!-- 快照版发布仓库 -->
+    <snapshotRepository>
+      <id>nexus-snapshots</id>
+      <name>Nexus Snapshot Repository</name>
+      <url>https://nexus.example.com/repository/maven-snapshots/</url>
+    </snapshotRepository>
+
+    <!-- 项目站点发布配置（mvn site-deploy） -->
+    <site>
+      <!-- 必须与 settings.xml server.id 一致 -->
+      <id>website</id>
+      <name>Project Website</name>
+      <url>scp://deploy@website.example.com/var/www/site</url>
+    </site>
+
+    <!-- 重定向地址（项目已迁移时使用） -->
+    <relocation>
+      <groupId>com.new-example</groupId>
+      <artifactId>new-artifact</artifactId>
+      <version>2.0.0</version>
+      <message>该项目已迁移到新坐标，请更新依赖</message>
+    </relocation>
+
+    <!-- 下载权限：repo（可从仓库下载）/ manual（手动下载）/ never -->
+    <downloadUrl>https://nexus.example.com/repository/maven-public/</downloadUrl>
+
+    <!-- 发布状态：none / converted / partner / deployed / verified -->
+    <status>deployed</status>
+  </distributionManagement>
+
+  <!-- 为不同环境（开发、测试、生产）提供差异化的构建配置，按需激活。 -->
+  <profiles>
+    <profile>
+      <!-- Profile 唯一 ID，通过 -P dev 激活 -->
+      <id>dev</id>
+
+      <!-- 激活条件（满足任意一个即激活） -->
+      <activation>
+        <!-- 是否默认激活 -->
+        <activeByDefault>true</activeByDefault>
+        <!-- JDK 版本匹配时激活，前缀匹配 -->
+        <jdk>17</jdk>
+        <!-- 操作系统条件 -->
+        <os>
+          <name>Windows 11</name>
+          <family>windows</family>
+          <arch>amd64</arch>
+        </os>
+        <!-- 属性存在或匹配时激活 -->
+        <property>
+          <name>env</name>
+          <value>dev</value>
+        </property>
+        <!-- 文件存在 / 不存在时激活 -->
+        <file>
+          <exists>${basedir}/dev-config.xml</exists>
+          <missing>${basedir}/prod-config.xml</missing>
+        </file>
+      </activation>
+
+      <!-- Profile 内可覆盖几乎所有顶层标签 -->
+      <properties>
+        <db.url>jdbc:mysql://localhost:3306/dev_db</db.url>
+      </properties>
+      <dependencies>...</dependencies>
+      <build>
+        <plugins>...</plugins>
+      </build>
+      <repositories>...</repositories>
+      <distributionManagement>...</distributionManagement>
+    </profile>
+
+    <profile>
+      <id>prod</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>prod</value>
+        </property>
+      </activation>
+      <properties>
+        <db.url>jdbc:mysql://prod-server:3306/prod_db</db.url>
+      </properties>
+    </profile>
+  </profiles>
+</project>

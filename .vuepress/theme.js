@@ -6,6 +6,7 @@ export default plumeTheme({
 
   markdown: {
     // codeTree: true,
+    include: true
   },
 
   plugins: {
