@@ -27,6 +27,7 @@ export default defineThemeConfig({
   ],
 
   blog: {
+    link: '/blog/',
     /**
      * 通过 glob string 配置包含文件，
      * 默认读取 源目录中的所有 `.md` 文件，但会排除 `notes` 配置中用于笔记的目录。
